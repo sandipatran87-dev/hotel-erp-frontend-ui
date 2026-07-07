@@ -41,7 +41,7 @@ export default function Sidebar() {
         </li>
 
         <li className="nav-item mb-2">
-          <Link className="nav-link text-white" to="/">
+          <Link className="nav-link text-white" to="/restaurant-tables">
             🍽 Restaurant
           </Link>
         </li>
