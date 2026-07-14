@@ -42,6 +42,26 @@ export default function RestaurantTableDetails() {
 
 };
 
+const openFoodOrder = () => {
+
+    api.get(`/food-orders/table/${table.tableId}`)
+
+        .then((res) => {
+
+            navigate(`/food-order/${res.data.foodOrderId}`);
+
+        })
+
+        .catch((err) => {
+
+            console.log(err);
+
+            alert("Food Order Not Found");
+
+        });
+
+};
+
 useEffect(() => {
 
     getTable();
@@ -199,6 +219,14 @@ objectFit:"cover"
 
 
 </div>
+
+<button
+    className="btn btn-success"
+    onClick={openFoodOrder}
+>
+    🍽 Food Order
+</button>
+
 
 </div>
 

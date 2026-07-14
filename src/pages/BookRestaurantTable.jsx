@@ -122,25 +122,41 @@ const saveBooking = () => {
 
     };
 
-    api.post("/restaurant-bookings", booking)
+ api.post("/restaurant-bookings", booking)
 
-        .then(() => {
+    .then((res) => {
 
-            alert("Restaurant Table Booked Successfully.");
+        const bookingId = res.data.restaurantBookingId;
 
-            navigate("/restaurant-tables");
+        api.post("/food-orders", {
+
+            restaurantBooking: {
+
+                restaurantBookingId: bookingId
+
+            }
 
         })
 
-        .catch((err) => {
+        .then((orderRes) => {
 
-            console.log(err);
+            alert("Restaurant Table Booked Successfully.");
 
-            alert("Booking Failed");
+            navigate(`/food-order/${orderRes.data.foodOrderId}`);
 
         });
 
-};
+    })
+
+    .catch((err) => {
+
+        console.log(err);
+
+        alert("Booking Failed");
+
+    }); 
+}
+
 
 
     // =============================

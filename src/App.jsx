@@ -14,6 +14,10 @@ import RestaurantTables from "./pages/RestaurantTables";
 import RestaurantTableDetails from "./pages/RestaurantTableDetails";
 import BookRestaurantTable from "./pages/BookRestaurantTable";
 import MenuItems from "./pages/MenuItems";
+import FoodOrder from "./pages/FoodOrder";
+import Bills from "./pages/Bills";
+import Bill from "./pages/Bill";
+import Payment from "./pages/Payment";
 
 function Layout() {
   return (
@@ -34,7 +38,14 @@ function Layout() {
           <Route path="/restaurant-table/:tableId" element={<RestaurantTableDetails />}/>
           <Route path="/book-table/:tableId" element={<BookRestaurantTable />}/>
           <Route path="/menu-items" element={<MenuItems />}/>
-        
+         <Route path="/food-order/:foodOrderId" element={<FoodOrder />}/>
+          <Route path="/food-order-test" element={<FoodOrder />} />
+          <Route path="/bills" element={<Bills />} />
+          <Route path="/bill/:billId" element={<Bill />} />
+          <Route path="/payment/:billId" element={<Payment />}/>
+          
+
+
         </Routes>
       </div>
     </div>

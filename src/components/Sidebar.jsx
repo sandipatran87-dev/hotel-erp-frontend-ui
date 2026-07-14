@@ -46,6 +46,13 @@ export default function Sidebar() {
           </Link>
         </li>
 
+        <li className="nav-item mb-2">
+          <Link className="nav-link text-white" to="/bills">
+           🧾 Bills
+          </Link>
+        </li>
+
+
 
 
       </ul>
