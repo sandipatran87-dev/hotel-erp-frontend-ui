@@ -1,0 +1,31 @@
+.dashboard-card{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.dashboard-card h2{
+
+    font-size:40px;
+
+    font-weight:bold;
+
+}
+
+.dashboard-card h5{
+
+    margin-bottom:15px;
+
+}

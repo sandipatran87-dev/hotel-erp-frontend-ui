@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-
+import { useNavigate } from "react-router-dom";
  
 
 export default function Home() {
+
+  const navigate = useNavigate();
+
   return (
     <div>
 
@@ -20,17 +23,22 @@ export default function Home() {
     </p>
   </div>
 
-  <Link to="/dashboard">
-    <button
-      className="btn btn-warning btn-lg px-5 shadow fw-bold"
-      style={{
+  <button
+    className="btn btn-warning btn-lg px-5 shadow fw-bold"
+    style={{
         height: "60px",
         borderRadius: "30px"
-      }}
-    >
-      Enter ERP →
-    </button>
-  </Link>
+    }}
+    onClick={() => {
+
+        localStorage.setItem("isLoggedIn", "true");
+
+        navigate("/dashboard");
+
+    }}
+>
+    Enter ERP →
+</button>
 
 </div>
  
@@ -138,67 +146,133 @@ export default function Home() {
 
 </div>
 
+{/* ================= Footer ================= */}
 
+<footer className="bg-dark text-light mt-5 pt-5 pb-3">
 
+    <div className="container">
 
-      {/* Modules */}
-      <div className="container mt-5">
-        <h2 className="text-center mb-4">Quick Access</h2>
+        <div className="row">
 
-         
+            {/* Hotel Info */}
 
-        <div className="row g-4">
+            <div className="col-md-4 mb-4">
 
-          <div className="col-md-4">
-            <Link to="/rooms" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>🛏 Rooms</h3>
-              </div>
-            </Link>
-          </div>
+                <h4 className="fw-bold">
 
-          <div className="col-md-4">
-            <Link to="/customers" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>👤 Customers</h3>
-              </div>
-            </Link>
-          </div>
+                    🏨 Horizon Hotel
 
-          <div className="col-md-4">
-            <Link to="/bookings" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>📅 Bookings</h3>
-              </div>
-            </Link>
-          </div>
+                </h4>
 
-          <div className="col-md-4">
-            <Link to="/bills" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>🧾 Bills</h3>
-              </div>
-            </Link>
-          </div>
+                <p>
 
-          <div className="col-md-4">
-            <Link to="/payments" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>💳 Payments</h3>
-              </div>
-            </Link>
-          </div>
+                    Experience luxury, comfort and delicious dining
+                    at Horizon Hotel & Restaurant.
 
-          <div className="col-md-4">
-            <Link to="/food-orders" className="text-decoration-none">
-              <div className="card shadow text-center p-4">
-                <h3>🍔 Food Orders</h3>
-              </div>
-            </Link>
-          </div>
+                </p>
+
+            </div>
+
+            {/* Quick Links */}
+
+            <div className="col-md-4 mb-4">
+
+                <h5 className="fw-bold">
+
+                    Quick Links
+
+                </h5>
+
+                <ul className="list-unstyled">
+
+                    <li>
+                        <a
+                            href="/"
+                            className="text-light text-decoration-none"
+                        >
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="/rooms"
+                            className="text-light text-decoration-none"
+                        >
+                            Rooms
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="/restaurant-tables"
+                            className="text-light text-decoration-none"
+                        >
+                            Restaurant
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="/contact"
+                            className="text-light text-decoration-none"
+                        >
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            {/* Contact */}
+
+            <div className="col-md-4 mb-4">
+
+                <h5 className="fw-bold">
+
+                    Contact Us
+
+                </h5>
+
+                <p className="mb-1">
+
+                    📍 Wardha Road, Nagpur
+
+                </p>
+
+                <p className="mb-1">
+
+                    📞 +91 9876543210
+
+                </p>
+
+                <p>
+
+                    📧 info@horizonhotel.com
+
+                </p>
+
+            </div>
 
         </div>
-      </div>
+
+        <hr className="border-light" />
+
+        <div className="text-center">
+
+            © 2026 Horizon Hotel ERP |
+            Developed by <strong>Sandip Atram</strong>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+     
 
     </div>
   );

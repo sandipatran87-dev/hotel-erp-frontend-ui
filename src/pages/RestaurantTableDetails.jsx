@@ -188,7 +188,7 @@ objectFit:"cover"
         ?
 
         <button
-            className="btn btn-success flex-fill"
+            className="btn btn-primary fw-bold w-50 rounded-pill"
             onClick={() =>
                 navigate(`/book-table/${table.tableId}`)
             }
@@ -199,33 +199,28 @@ objectFit:"cover"
         :
 
         <button
-            className="btn btn-secondary flex-fill"
+            className="btn btn-outline-secondary fw-bold w-50 rounded-pill"
             disabled
         >
-            Table Not Available
+            🚫 Not Available
         </button>
+
     }
 
     <button
-        className="btn btn-outline-primary flex-fill"
-        onClick={() => navigate("/menu-items")}
+        className="btn btn-warning text-dark fw-bold w-50 rounded-pill"
+        onClick={openFoodOrder}
     >
-        📖 View Menu
+        🛒 Food Order
     </button>
 
 </div>
 
 
 
-
 </div>
 
-<button
-    className="btn btn-success"
-    onClick={openFoodOrder}
->
-    🍽 Food Order
-</button>
+
 
 
 </div>

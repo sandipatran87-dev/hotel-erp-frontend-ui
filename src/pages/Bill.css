@@ -1,0 +1,35 @@
+body{
+    background:#f2f2f2;
+}
+
+#invoice{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    border-radius:10px;
+}
+
+@media print{
+
+    body *{
+        visibility:hidden;
+    }
+
+    #invoice,
+    #invoice *{
+        visibility:visible;
+    }
+
+    #invoice{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        box-shadow:none !important;
+        border:none !important;
+    }
+
+    .btn{
+        display:none !important;
+    }
+}
