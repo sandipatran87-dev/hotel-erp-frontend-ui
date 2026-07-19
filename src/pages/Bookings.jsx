@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 export default function Bookings() {
 
     const [bookings, setBookings] = useState([]);
 
+    const navigate = useNavigate();
+
+
+    // =========================
+    // GET ALL BOOKINGS
+    // =========================
     const getBookings = () => {
 
         api.get("/bookings")
@@ -15,39 +22,97 @@ export default function Bookings() {
             })
             .catch((err) => {
 
-                console.log(err);
+                console.log(
+                    "Get Bookings Error:",
+                    err
+                );
 
             });
 
     };
 
+
+    // =========================
+    // DELETE BOOKING
+    // =========================
     const deleteBooking = (bookingId) => {
 
-    if (!window.confirm("Delete this booking?")) {
-        return;
-    }
+        if (!window.confirm("Delete this booking?")) {
+            return;
+        }
 
-    api.delete(`/bookings/${bookingId}`)
-        .then(() => {
+        api.delete(`/bookings/${bookingId}`)
+            .then(() => {
 
-            alert("Booking Deleted Successfully");
+                alert(
+                    "Booking Deleted Successfully"
+                );
 
-            getBookings();
+                getBookings();
 
-        })
-        .catch((err) => {
+            })
+            .catch((err) => {
 
-            console.log(err);
+                console.log(
+                    "Delete Booking Error:",
+                    err
+                );
 
-        });
+                alert(
+                    "Failed to delete booking"
+                );
 
-};
+            });
 
+    };
+
+
+    // =========================
+    // GENERATE ROOM BILL
+    // =========================
+    const generateRoomBill = async (bookingId) => {
+
+        try {
+
+            const res = await api.post(
+                `/bills/room/${bookingId}`
+            );
+
+            console.log(
+                "Room Bill Created:",
+                res.data
+            );
+
+            const billId = res.data.billId;
+
+            // Go to existing Payment page
+            navigate(`/payment/${billId}`);
+
+        } catch (error) {
+
+            console.log(
+                "Room Bill Generation Error:",
+                error
+            );
+
+            alert(
+                "Failed to generate room bill"
+            );
+
+        }
+
+    };
+
+
+    // =========================
+    // LOAD BOOKINGS
+    // =========================
     useEffect(() => {
 
         getBookings();
 
     }, []);
+
 
     return (
 
@@ -56,114 +121,189 @@ export default function Bookings() {
             <h2 className="mb-4">
                 📖 Booking Management
             </h2>
+
+
             <div className="card shadow">
 
-    <div className="card-body">
+                <div className="card-body">
 
-        <table className="table table-bordered table-hover">
+                    <div className="table-responsive">
 
-            <thead className="table-dark">
+                        <table className="table table-bordered table-hover">
 
-                <tr>
+                            <thead className="table-dark">
 
-                    <th>Customer</th>
+                                <tr>
 
-                    <th>Room</th>
+                                    <th>Customer</th>
 
-                    <th>Check In</th>
+                                    <th>Room</th>
 
-                    <th>Check Out</th>
+                                    <th>Check In</th>
 
-                    <th>Days</th>
+                                    <th>Check Out</th>
 
-                    <th>Amount</th>
+                                    <th>Days</th>
 
-                    <th>Status</th>
+                                    <th>Amount</th>
 
-                </tr>
+                                    <th>Status</th>
 
-            </thead>
+                                    <th>Action</th>
 
-            <tbody>
+                                </tr>
 
-                {bookings.map((booking) => (
-
-                    <tr key={booking.bookingId}>
-
-                        <td>
-
-                            {booking.customer.firstName}{" "}
-                            {booking.customer.lastName}
-
-                        </td>
-
-                        <td>
-
-                            {booking.room.roomNumber}
-
-                        </td>
-
-                        <td>
-
-                            {booking.checkInDate}
-
-                        </td>
-
-                        <td>
-
-                            {booking.checkOutDate}
-
-                        </td>
-
-                        <td>
-
-                            {booking.totalDays}
-
-                        </td>
-
-                        <td>
-
-                            ₹ {booking.totalAmount}
-
-                      </td>
-
-                        <td>
-
-                            <span className="badge bg-success">
-
-                                {booking.bookingStatus}
-
-                            </span>
-
-                            
-                            <button className="btn btn-danger btn-sm ms-3"
-                             onClick={() => deleteBooking(booking.bookingId)}
-                            >
-                               🗑 Delete
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                ))}
+                            </thead>
 
 
-            </tbody>
+                            <tbody>
 
- 
+                                {bookings.length === 0 ? (
 
-        </table>
+                                    <tr>
+
+                                        <td
+                                            colSpan="8"
+                                            className="text-center"
+                                        >
+                                            No Bookings Found
+                                        </td>
+
+                                    </tr>
+
+                                ) : (
+
+                                    bookings.map((booking) => (
+
+                                        <tr
+                                            key={booking.bookingId}
+                                        >
+
+                                            {/* CUSTOMER */}
+
+                                            <td>
+
+                                                {booking.customer?.firstName}{" "}
+                                                {booking.customer?.lastName}
+
+                                            </td>
 
 
+                                            {/* ROOM */}
 
-    </div>
+                                            <td>
 
-   
+                                                {booking.room?.roomNumber}
+
+                                            </td>
 
 
+                                            {/* CHECK IN */}
 
-</div>
+                                            <td>
+
+                                                {booking.checkInDate}
+
+                                            </td>
+
+
+                                            {/* CHECK OUT */}
+
+                                            <td>
+
+                                                {booking.checkOutDate}
+
+                                            </td>
+
+
+                                            {/* TOTAL DAYS */}
+
+                                            <td>
+
+                                                {booking.totalDays}
+
+                                            </td>
+
+
+                                            {/* TOTAL AMOUNT */}
+
+                                            <td>
+
+                                                ₹ {Number(
+                                                    booking.totalAmount || 0
+                                                ).toLocaleString(
+                                                    "en-IN"
+                                                )}
+
+                                            </td>
+
+
+                                            {/* BOOKING STATUS */}
+
+                                            <td>
+
+                                                <span
+                                                    className={
+                                                        booking.bookingStatus === "COMPLETED"
+                                                            ? "badge bg-secondary"
+                                                            : "badge bg-success"
+                                                    }
+                                                >
+
+                                                    {booking.bookingStatus}
+
+                                                </span>
+
+                                            </td>
+
+
+                                            {/* ACTION */}
+<td>
+
+    {booking.bookingStatus === "BOOKED" ? (
+
+        <button
+            className="btn btn-success btn-sm me-2"
+            onClick={() => generateRoomBill(booking.bookingId)}
+        >
+            💳 Checkout & Pay
+        </button>
+
+    ) : (
+
+        <button
+            className="btn btn-secondary btn-sm me-2"
+            disabled
+        >
+            ✅ Paid
+        </button>
+
+    )}
+
+    <button
+        className="btn btn-danger btn-sm"
+        onClick={() => deleteBooking(booking.bookingId)}
+    >
+        🗑 Delete
+    </button>
+
+</td>
+
+                                        </tr>
+
+                                    ))
+
+                                )}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

@@ -19,6 +19,7 @@ import FoodOrder from "./pages/FoodOrder";
 import Bills from "./pages/Bills";
 import Bill from "./pages/Bill";
 import Payment from "./pages/Payment";
+import Reports from "./pages/Reports";
 
 function Layout() {
 
@@ -116,6 +117,11 @@ function Layout() {
                         path="/payment/:billId"
                         element={<Payment />}
                     />
+
+                    <Route
+                       path="/reports"
+                       element={<Reports />}
+                      />
 
                 </Routes>
 
